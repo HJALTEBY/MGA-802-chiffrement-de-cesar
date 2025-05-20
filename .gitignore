@@ -1,0 +1,5 @@
+#Ignore les fichiers de config de l'IDE
+.idea/
+
+#Ignore le virtual env local
+.venv/
