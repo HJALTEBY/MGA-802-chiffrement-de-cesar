@@ -18,4 +18,25 @@ def est_un_mot(mot_a_trouver,fichier):
     else:
         return False
 
-print(est_un_mot('abeille',chemin_dictionnaire))
+def brute_force(mot_a_decoder,fichier):
+    """
+    Change la clé du code César jusqu'à tomber sur un mot valide.
+    :param mot_a_trouver: La chaîne de character que l'on souhaite décoder.
+    :param fichier: Le fichier contenant la liste de mots valide.
+    :return: None si aucune clé n'est trouvée. Retourne la valeur de la clé si une clé a été trouvée.
+    """
+
+    cle = 0
+    # On vérifie si la str est un mot. Si ce n'est pas le cas, on recommence en incrémentant la clé de 1.
+    while not est_un_mot(mot_a_decoder,fichier) and cle <= 26:
+        print("Ce n'est pas la bonne clé")
+        print("Décodage avec la clé suivante")
+        cle += 1
+
+    # On a pas trouvé la clé :(
+    if cle < 26:
+        print("Aucune clé n'a été trouvée :(")
+
+    #On a trouvé la clé
+    else:
+        print(f"la clé du code César est {cle}!")
