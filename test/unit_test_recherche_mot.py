@@ -1,6 +1,7 @@
 from brute_force import *
 import unittest
 
+chemin_dictionnaire = "../data/dict-fr-AU-DELA-common-words.ascii"
 
 class MyTestCase(unittest.TestCase):
     def test_est_un_mot(self):
@@ -9,3 +10,5 @@ class MyTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
