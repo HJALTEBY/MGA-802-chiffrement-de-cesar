@@ -1,7 +1,23 @@
 import string
+from xdrlib import ConversionError
+
 
 # Fonction pour décaler les lettres de l'alphabet en fonction de la clé
 def decalage(cle) :
+    """
+    Génère un alphabet décalé d'un offset. Par exemple pour un offset de 2, on obtient [c, d, e, f, ..., y, z, a, b].
+    :param cle: La clé à utiliser. Cette clé doit être un entier.
+    :raise TypeError si la clé ne peut être convertie en entier.
+    :return: Alphabet décalé d'un offset correspondant à la clé.
+    """
+
+    # On vérifie que la clé est bien un entier. Si ce n'est pas le cas, on raise une exception.
+    # Source du try-except: https://www.geeksforgeeks.org/python-try-except/
+    try:
+        cle = int(cle)
+    except ValueError:
+        raise(TypeError("La clé doit être un entier !")) # Source du mot clé pour la levé d'exception: https://stackoverflow.com/questions/2052390/manually-raising-throwing-an-exception-in-python
+
     # on crée une chaine de caractère correspondant à l'alphabet
     alphabet = string.ascii_lowercase
     # on passe la chaine de caractère en liste :
