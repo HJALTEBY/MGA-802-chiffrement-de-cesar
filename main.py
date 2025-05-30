@@ -48,25 +48,34 @@ def decryptage_terminal(message):
 def ouvrir_nom_fichier():
     """
     Demande à l'utilisateur le nom d’un fichier à lire.
-    Tente d’ouvrir ce fichier jusqu’à 3 fois en cas d’erreur.
-    :return: le texte lu ou None si 3 erreurs consécutives
+    Tente d’ouvrir ce fichier jusqu’à 4 fois en cas d’erreur.
+    :return: le texte lu ou None si 4 erreurs consécutives
     """
     compteur = 0
     while True:
         try:
+            # Limite de tentatives atteinte
+            if compteur > 3:
+                return None
+
             fichier = input('Veuillez entrer le nom du fichier à lire (.txt) : ')
             f = open(fichier, 'r')  # Ouverture du fichier en lecture
             txt = f.read()
             print(txt)  # Affiche le contenu du fichier
+
+        except IsADirectoryError as e:
+            compteur += 1
+            print("C'est un dossier, pas un fichier !")
         except FileNotFoundError as e:
             compteur += 1
             print("Votre fichier semble ne pas exister!")
 
-            # Limite de tentatives atteinte
-            if compteur > 3:
-                return None
-                break
-        return txt
+        except PermissionError as e:
+            compteur += 1
+            print("Vous n'avez pas le droit d'ouvrir ce fichier !")
+
+        else:
+            return txt
 
 
 def choix_cle_ou_brute_force(mot_a_decrypter):
