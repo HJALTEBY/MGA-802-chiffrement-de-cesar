@@ -1,10 +1,10 @@
 """
-@file unit_test_decryptage.py
-@brief Test unitaire pour la fonction decrypter.
+:file: unit_test_decryptage.py
+:brief: Test unitaire pour la fonction decrypter. Il suffit de lancer le fichier pour tester toutes les fonctions!
 """
 
 import unittest
-from cryptographie.encryption import decrypter
+from cryptographie.encryption_decryption import decrypter, decrypter_fichier
 from gestion_character import retirer_accents
 
 # Messages utilisés pour les tests. Comme nous le faisons à la main, nous testons seulement des clés avec un décalage de 1.
@@ -15,6 +15,8 @@ message_complexe = "Ceci est un message complexe!"
 message_complexe_cle_1 = "dfdj ftu vo nfttbhf dpnqmfyf!"
 message_tres_complexe = "Ceci est un message super complexe! Il y a de la ponctuation et des chiffres: 115531. Ceci étaient les chiffres en questions."
 message_tres_complexe_cle_1 = "dfdj ftu vo nfttbhf tvqfs dpnqmfyf! jm z b ef mb qpoduvbujpo fu eft dijggsft: 115531. dfdj fubjfou mft dijggsft fo rvftujpot."
+
+fichier_encrpyte = "../data/fichier_encrypte"
 
 class MyTestCase(unittest.TestCase):
     def test_something(self):
@@ -35,6 +37,12 @@ class MyTestCase(unittest.TestCase):
         # L'encryptage n'accepte qu'une chaine de caractère en entrée
         self.assertRaises(TypeError, decrypter, 123, [1, "a", 2])
         self.assertRaises(TypeError, decrypter, 123, 2)
+
+        # Test pour la version faisant appel à un fichier
+        self.assertEqual(decrypter_fichier(fichier_encrpyte, 1), retirer_accents(message_tres_complexe).lower())
+
+        # Etant donné que la fonction fait directement appel à la fonction decrypter de base, on considère les tests du
+        # dessus comme valides pour cette fonctions-ci
 
 if __name__ == '__main__':
     unittest.main()

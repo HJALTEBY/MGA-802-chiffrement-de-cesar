@@ -87,9 +87,4 @@ def decrypter_fichier(file, cle_cryptage):
         # Lire le contenu du fichier
         contenu_crypte = fio.read()
 
-    alphabet_crypte = decalage(cle_cryptage)  # créer nouvel alphabet avec clé de cryptage
-    contenuDecrypte = ''
-
-    for l in contenu_crypte:
-        contenuDecrypte[l] = alphabet[alphabet_crypte.find(l)]
-    print(f'Voici le message crypte : {contenuDecrypte}')
+    return decrypter(contenu_crypte,cle_cryptage)

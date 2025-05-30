@@ -1,7 +1,4 @@
-import string
-
-from model import encryption
-from brute_force import *
+from cryptographie import encryption_decryption
 from gestion_character import retirer_accents
 
 # Boucle principale de l'algorithme

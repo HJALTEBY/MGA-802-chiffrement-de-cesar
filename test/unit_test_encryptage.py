@@ -1,10 +1,10 @@
 """
-@file unit_test_encryptage.py
-@brief Test unitaire pour la fonction encrypter.
+:file: unit_test_encryptage.py
+:brief: Test unitaire pour la fonction encrypter. Il suffit de lancer le fichier pour tester toutes les fonctions!
 """
 
 import unittest
-from cryptographie.encryption import encrypter
+from cryptographie.encryption_decryption import encrypter
 from gestion_character import retirer_accents
 
 # Messages utilisés pour les tests. Comme nous le faisons à la main, nous testons seulement des clés avec un décalage de 1.

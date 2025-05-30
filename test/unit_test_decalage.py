@@ -1,6 +1,6 @@
 """
-@file unit_test_decalage.py
-@brief Test unitaire pour la fonction decalage.
+:file: unit_test_decalage.py
+:brief: Test unitaire pour la fonction decalage.  Il suffit de lancer le fichier pour tester toutes les fonctions!
 """
 
 import unittest
