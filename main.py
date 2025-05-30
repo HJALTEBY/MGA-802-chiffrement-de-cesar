@@ -1,132 +1,143 @@
-"""
-:file: main.py
-:brief: Programme principal faisant appel au différents package. Ce script permet d'encrypter un message en code césar,
-de décrypter un message dont on connait la clé, et enfin de décrypter un message avec une méthode brute force si la clé
-est inconnue le tout en interagissant avec l'utilisateur.
-"""
-
+from gestion_character import *
 from cryptographie.encryption_decryption import *
-from gestion_character import retirer_accents
+from cryptographie.recherche_mot import *
 
 def encryptage_terminal():
     """
     Procédure demandant à l'utilisateur un message qu'il souhaite encoder et affiche l'encodage du message.
-    :return:
+    :return: None
     """
-    # Les fonctions d'encryptage et de decalage propagent des exceptions. C'est ici qu'elles sont gérées.
+    # Les fonctions d'encryptage et de décalage propagent des exceptions. C'est ici qu'elles sont gérées.
     while True:
+        # On enlève les accents et on met en minuscules pour uniformiser l'entrée utilisateur
         message_a_encrypter = retirer_accents(input('Entrez le message à encrypter:').lower())
-        cle = input('Entrez une clé de cryptage entre 0 et 25:')
+        cle = input('Entrez une clé de cryptage entre -25 et 25:')
 
         try:
-            encrypter(message_a_encrypter, cle)
+            # Tentative d'encryptage avec la clé fournie
+            print(f"Le message encrypté avec la clé {cle} est: {encrypter(message_a_encrypter, cle)}")
         except TypeError as e:
-            # Si message_a_encrypter n'a pas le bon type ou si la cle entrée n'est pas un format valide, on
-            # affiche l'exception et on redemande à l'utilisateur de rentrer une valeur valide.'
+            # Si le type de données n'est pas correct ou la clé est invalide, on affiche l'erreur
             print(e)
-
-        # Si aucune exception n'est levée, on peut continuer!
         else:
+            # Si l'encryptage se passe bien, on sort de la boucle
             break
     return
 
-def decryptage_terminal():
+
+def decryptage_terminal(message):
     """
-    Procédure demandant à l'utilisateur un message qu'il souhaite decoder ainsi que la clé de décodage du message.
-    :return:
+    Procédure demandant à l'utilisateur la clé de décryptage d’un message.
+    :param message: le message chiffré à décrypter
+    :return: None
     """
-    # Les fonctions d'encryptage et de decalage propagent des exceptions. C'est ici qu'elles sont gérées.
+    # Même structure que l'encryptage : gestion des exceptions pour des saisies incorrectes
     while True:
-        message_a_decrypter = retirer_accents(input('Entrez le message à décrypter:').lower())
         cle = input('Entrez une clé de cryptage entre 0 et 25:')
 
         try:
-            decrypter(message_a_decrypter, cle)
+            print(f"Le message décrypté est: {decrypter(message, cle)}")
         except TypeError as e:
-            # Si message_a_encrypter n'a pas le bon type ou si la cle entrée n'est pas un format valide, on
-            # affiche l'exception et on redemande à l'utilisateur de rentrer une valeur valide.'
+            # Erreur de type ou clé invalide
             print(e)
-
-        # Si aucune exception n'est levée, on peut continuer!
         else:
             break
     return
 
-def decryptage_fichier():
-    """
-    Procédure demandant à l'utilisateur un fichier contenant un message qu'il souhaite decoder ainsi que la clé de
-    décodage du message.
-    :return:
-    """
-    # Les fonctions d'encryptage et de decalage propagent des exceptions. C'est ici qu'elles sont gérées.
 
-
+def ouvrir_nom_fichier():
+    """
+    Demande à l'utilisateur le nom d’un fichier à lire.
+    Tente d’ouvrir ce fichier jusqu’à 4 fois en cas d’erreur.
+    :return: le texte lu ou None si 4 erreurs consécutives
+    """
     compteur = 0
     while True:
-        fichier_a_decrypter = retirer_accents(input('Entrez le fichier à décrypter:').lower())
-        cle = input('Entrez une clé de cryptage entre 0 et 25:')
-
         try:
-            decrypter_fichier(fichier_a_decrypter, cle)
-        except TypeError as e:
-            # Si message_a_encrypter n'a pas le bon type ou si la cle entrée n'est pas un format valide, on
-            # affiche l'exception et on redemande à l'utilisateur de rentrer une valeur valide.'
-            print(e)
+            # Limite de tentatives atteinte
+            if compteur > 3:
+                return None
 
-        # L'exception est cette fois-ci due à une erreur de fichier inexistant.
+            fichier = input('Veuillez entrer le nom du fichier à lire (.txt) : ')
+            f = open(fichier, 'r')  # Ouverture du fichier en lecture
+            txt = f.read()
+            print(txt)  # Affiche le contenu du fichier
+
+        except IsADirectoryError as e:
+            compteur += 1
+            print("C'est un dossier, pas un fichier !")
         except FileNotFoundError as e:
             compteur += 1
             print("Votre fichier semble ne pas exister!")
 
-            # Si l'utilisateur entre trop de fois un nom de fichier erroné, on le sort de la boucle.
-            if compteur > 3:
-                print("Limite atteinte pour la saisie du fichier.")
-                break
+        except PermissionError as e:
+            compteur += 1
+            print("Vous n'avez pas le droit d'ouvrir ce fichier !")
 
-        # Si aucune exception n'est levée, on peut continuer!
         else:
-            break
-    return
+            return txt
 
-def choix_cle_ou_brute_force_message():
+
+def choix_cle_ou_brute_force(mot_a_decrypter):
     """
-    Demande à l'utilisateur de choisir entre la méthode brute force ou s'il connaît la clé dans le cas d'un décryptage
-    d'un message via le terminal.
-    :return:
+    Propose à l'utilisateur de décrypter un message avec une clé connue ou via la méthode brute force.
+    :param mot_a_decrypter: Le message à décrypter
+    :return: la clé trouvée ou None si non trouvée
     """
-    while True:
+    cle_decryptage = None
+    while cle_decryptage is None:
         liste_reponse = ['yes', 'oui', 'non', 'no']
         cb = retirer_accents(input('Connaissez-vous la combinaison ? ')).lower()
+
         if cb not in liste_reponse:
             print('Réponse non-valide')
-        elif cb == 'no' or cb == 'non':
-            # brute_force(mot_a_decrypter,"data/dict-fr-AU-DELA-common-words.ascii")
-            print('brute_force via terminal')
-            break
-        else:  # la reponse est oui ou yes
-            decryptage_terminal()
-            break
-    return
 
-def choix_cle_ou_brute_force_fichier():
+        elif cb == 'no' or cb == 'non':
+
+            while True:
+                # Méthode automatique ou manuelle de brute force
+                numero_methode = input('Voulez-vous utiliser la méthode automatique (1) ou manuel (2) ? : ')
+                if numero_methode == '1':
+                    print('brute_force automatique via terminal')
+                    cle_decryptage = brute_force(mot_a_decrypter, "data/dict-fr-AU-DELA-common-words.ascii")
+                    afficher_resultat_brute_force(mot_a_decrypter, cle_decryptage)
+                    break
+
+                elif numero_methode == '2':
+                    print('brute_force manuel via terminal')
+                    cle_decryptage = brute_force_methode_2(mot_a_decrypter)
+                    afficher_resultat_brute_force(mot_a_decrypter, cle_decryptage)
+                    break
+
+                else:
+                    print("Réponse non valide. Veuillez entrer 1 ou 2.")
+                    continue
+
+
+        else:  # si réponse = oui ou yes, alors demande la clé et déchiffre
+            decryptage_terminal(mot_a_decrypter)
+            break
+    return cle_decryptage
+
+def afficher_resultat_brute_force(message,cle):
     """
-    Demande à l'utilisateur de choisir entre la méthode brute force ou s'il connaît la clé dans le cas d'un décryptage
-    d'un fichier.
+    Affiche le résultat de l'exécution de brute force en affichant le message décrypté ainsi que la clé si elle a été
+    trouvée.
+    :param message: Le message à décrypter provenant du fichier.
+    :param cle: La clé trouvée.
     :return:
     """
-    while True:
-        liste_reponse = ['yes', 'oui', 'non', 'no']
-        cb = retirer_accents(input('Connaissez-vous la combinaison ? ')).lower()
-        if cb not in liste_reponse:
-            print('Réponse non-valide')
-        elif cb == 'no' or cb == 'non':
-            # brute_force(mot_a_decrypter,"data/dict-fr-AU-DELA-common-words.ascii")
-            print('brute_force via fichier')
-            break
-        else:  # la reponse est oui ou yes
-            decryptage_fichier()
-            break
-    return
+
+    # La clé n'a pas été trouvée
+    if cle is None:
+        print("Aucune clé n'a été trouvée. Fin du programme.")
+        return
+
+    else:
+        # Le brute force n'a pas été effectué sur un fichier
+        print(f"Le message décrypté est: '{decrypter(message,cle)}'.")
+        print(f"La clé est: {cle}.")
+
 
 # Boucle principale de l'algorithme
 while True:
@@ -134,26 +145,32 @@ while True:
 
     # encryptage d'un message
     if obj == 'encrypter':
-        # On choisi entre encrypter un fichier ou un message.
+        # Choix d'encrypter un message (l'encryptage de fichier n’est pas proposé ici)
         encryptage_terminal()
         break
 
-    # décryptage d'un message'
     elif obj == 'decrypter':
-        #mot_a_decrypter = retirer_accents(input('Entrez le mot à décrypter:')).lower()
+        # L’utilisateur décide de décrypter un message ou un fichier
         while True:
             reponse = retirer_accents(input('Souhaitez-vous décrypter un message ou un fichier? (message/fichier)')).lower()
+
             if reponse == 'fichier':
-                choix_cle_ou_brute_force_fichier()
+                text = ouvrir_nom_fichier()
+                if text is None:
+                    print("Limite atteinte pour la saisie du fichier.")
+                    break
+                else:
+                    choix_cle_ou_brute_force(text)
                 break
+
             elif reponse == 'message':
-                choix_cle_ou_brute_force_message()
+                message_a_decrypter = retirer_accents(input('Quel message voulez-vous décrypter ? :'))
+                cle = choix_cle_ou_brute_force(message_a_decrypter)
+                print(f"La clé du code César est {cle}!")
+                print("Voici le message décrypté : ")
+                print(decrypter(message_a_decrypter, cle))
                 break
-            else:
-                print("Réponse non-valide. Entrez 'fichier' ou 'message'.")
-                continue
-        break
-    # réponse non valide
+
+        break  # Sortie de la boucle principale après traitement
     else:
         print('La réponse est non valide')
-        continue

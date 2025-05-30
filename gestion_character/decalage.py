@@ -1,5 +1,5 @@
 import string
-from xdrlib import ConversionError
+#from xdrlib import ConversionError
 
 
 # Fonction pour décaler les lettres de l'alphabet en fonction de la clé

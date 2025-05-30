@@ -17,7 +17,7 @@ message_tres_complexe = "Ceci est un message super complexe! Il y a de la ponctu
 message_tres_complexe_cle_1 = "dfdj ftu vo nfttbhf tvqfs dpnqmfyf! jm z b ef mb qpoduvbujpo fu eft dijggsft: 115531. dfdj fubjfou mft dijggsft fo rvftujpot."
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
+    def test_encrypter(self):
         self.assertEqual(encrypter("abc", 0), message_base)
         self.assertEqual(encrypter("abc",1), mot_encrypte_cle_1)
         self.assertEqual(encrypter("abc", -1), mot_encrypte_cle_moins_1)
