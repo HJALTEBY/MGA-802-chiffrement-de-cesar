@@ -37,6 +37,7 @@ for repet in range(nb_repetition):
 # Affichage de la moyenne du temps d'exécution
 print(f"Le temps d'execution moyen de la deuxième méthode est : {(total_time2/nb_repetition)} [s]")
 
+# Donne la fonction brute force la plus efficace
 if (toc2-tic2) < (toc1-tic1) :
     print('La deuxième méthode est plus efficace')
 else :
