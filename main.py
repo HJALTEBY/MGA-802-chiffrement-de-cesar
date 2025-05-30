@@ -69,10 +69,10 @@ def ouvrir_nom_fichier():
         return txt
 
 
-def choix_cle_ou_brute_force(m_a_decr):
+def choix_cle_ou_brute_force(mot_a_decrypter):
     """
     Propose à l'utilisateur de décrypter un message avec une clé connue ou via la méthode brute force.
-    :param m_a_decr: Le message à décrypter
+    :param mot_a_decrypter: Le message à décrypter
     :return: la clé trouvée ou None si non trouvée
     """
     cle_decryptage = None
@@ -88,13 +88,13 @@ def choix_cle_ou_brute_force(m_a_decr):
             numero_methode = input('Voulez-vous utiliser la méthode automatique (1) ou manuel (2) ? : ')
             if numero_methode == '1':
                 print('brute_force automatique via terminal')
-                cle_decryptage = brute_force(m_a_decr, "data/dict-fr-AU-DELA-common-words.ascii")
+                cle_decryptage = brute_force(mot_a_decrypter, "data/dict-fr-AU-DELA-common-words.ascii")
                 break
             elif numero_methode == '2':
                 print('brute_force manuel via terminal')
-                cle_decryptage = brute_force_methode_2(m_a_decr)
+                cle_decryptage = brute_force_methode_2(mot_a_decrypter)
         else:  # si réponse = oui ou yes, alors demande la clé et déchiffre
-            decryptage_terminal(m_a_decr)
+            decryptage_terminal(mot_a_decrypter)
             break
     return cle_decryptage
 
