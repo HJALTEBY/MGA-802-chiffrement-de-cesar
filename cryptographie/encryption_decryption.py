@@ -88,6 +88,5 @@ def decrypter_fichier(file, cle_cryptage):
     with open(file, 'r', encoding='utf-8') as fio:
         # Lire le contenu du fichier
         contenu_crypte = fio.read()
-        liste_contenu_crypte = fio.split()
 
-    return decrypter(liste_contenu_crypte,cle_cryptage)
+    return decrypter(contenu_crypte,cle_cryptage)

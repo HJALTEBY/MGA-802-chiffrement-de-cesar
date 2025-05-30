@@ -1,27 +1,6 @@
-import brute_force.recherche_mot
-from model import *
-from gestion_character import retirer_accents
+from gestion_character import *
 from cryptographie.encryption_decryption import *
 
-while True:
-    obj = retirer_accents(input('Voulez-vous encrypter ou décrypter ? ').lower())
-    if obj == 'encrypter':
-        print('fonction encrypter')
-        break
-    elif obj == 'decrypter':
-        message_a_decrypter = retirer_accents(input('Entrez le message à décrypter:')).lower()
-        while True:
-            liste_reponse = ['yes', 'oui', 'non', 'no']
-            cb = retirer_accents(input('Connaissez-vous la combinaison ? ')).lower()
-            if cb not in liste_reponse:
-                print('Réponse non-valide')
-            elif cb == 'no' or cb == 'non':
-                print('brute_force')
-                brute_force.recherche_mot.brute_force(message_a_decrypter,"data/dict-fr-AU-DELA-common-words.ascii")
-                break
-            else:  # la reponse est oui ou yes
-                print(f'Je connais la combinaison')
-                print('fonction_decrypter')
 def encryptage_terminal():
     """
     Procédure demandant à l'utilisateur un message qu'il souhaite encoder et affiche l'encodage du message.
@@ -163,7 +142,3 @@ while True:
         break
     else:
         print('La réponse est non valide')
-
-"""
-TODO:  Mettre des commentaires et expliquer ce que fait le script en commentaire au début du fichier
-"""
