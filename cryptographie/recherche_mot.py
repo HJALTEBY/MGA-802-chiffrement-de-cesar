@@ -44,58 +44,31 @@ def est_un_mot_version_lente(mot_a_trouver):
             print(f"'{reponse_utilisateur}' n'est pas une réponse valide.")
 
 
-def brute_force_methode_1(mot_a_decoder,fichier):
+def brute_force(mess_a_decoder,fichier):
     """
     Change la clé du code César jusqu'à tomber sur un mot valide.
     :param mot_a_trouver: La chaîne de character que l'on souhaite décoder.
     :param fichier: Le fichier contenant la liste de mots valide.
-    :return: None si aucune clé n'est trouvée. Retourne un tuple (mot, clé) si la clé est trouvée
+    :return: None si aucune clé n'est trouvée. Retourne la valeur de la clé si une clé a été trouvée.
     """
-
     cle = 0
-    mot_a_tester = decrypter(mot_a_decoder, cle)
+    list_de_mot = mess_a_decoder.split()
+
+
     # On vérifie si la str est un mot. Si ce n'est pas le cas, on recommence en incrémentant la clé de 1.
-    while not est_un_mot(mot_a_tester,fichier) and cle <= 26:
+    #Si une clé unique pour tout le message, il suffit de vérifier le premier mot de la phrase cryptée
+    #cette methode ne fonctionne qu'en partant du principe qu'une clé unique a été utilisé
+    while not est_un_mot(decrypter(list_de_mot[0], cle), fichier) and cle <= 26:
         print("Ce n'est pas la bonne clé")
         cle += 1
-        mot_a_tester = decrypter(mot_a_decoder, cle)
         print("Décodage avec la clé suivante") #Mettre la fonction permettant de décoder le mot avec la clé n
 
 
     # On a pas trouvé la clé :(
     if cle > 26:
         print("Aucune clé n'a été trouvée :(")
-        return None
 
     #On a trouvé la clé
     else:
-        print(f"la clé du code César est {cle}!")
-        return (mot_a_tester,cle)
+        print(f"la clé du code César est {cle}! La phrase décrypté est la suivante :\n {decrypter(mess_a_decoder, cle)}")
         
-def brute_force_methode_2(mot_a_decoder) :
-    """
-    Change la clé du code César jusqu'à tomber sur un mot valide.
-    :param mot_a_trouver: La chaîne de character que l'on souhaite décoder.
-    :param fichier: Le fichier contenant la liste de mots valide.
-    :return: None si aucune clé n'est trouvée. Retourne un tuple (mot, clé) si la clé est trouvée
-    """
-
-    cle = 0
-    mot_a_tester = decrypter(mot_a_decoder, cle)
-    # On vérifie si la str est un mot. Si ce n'est pas le cas, on recommence en incrémentant la clé de 1.
-    while not est_un_mot_version_lente(mot_a_decoder) and cle <= 26:
-        print("Ce n'est pas la bonne clé")
-        cle += 1
-        mot_a_tester = decrypter(mot_a_decoder, cle)
-        print("Décodage avec la clé suivante") #Mettre la fonction permettant de décoder le mot avec la clé n
-
-
-    # On a pas trouvé la clé :(
-    if cle > 26:
-        print("Aucune clé n'a été trouvée :(")
-        return None
-
-    #On a trouvé la clé
-    else:
-        print(f"la clé du code César est {cle}!")
-        return (mot_a_tester,cle)

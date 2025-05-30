@@ -1,13 +1,26 @@
-"""
-:file: main.py
-:brief: Programme principal faisant appel au différents package. Ce script permet d'encrypter un message en code césar,
-de décrypter un message dont on connait la clé, et enfin de décrypter un message avec une méthode brute force si la clé
-est inconnue le tout en interagissant avec l'utilisateur.
-"""
-
-from cryptographie.encryption_decryption import *
+from model import *
+from brute_force import *
 from gestion_character import retirer_accents
 
+while True:
+    obj = retirer_accents(input('Voulez-vous encrypter ou décrypter ? ').lower())
+    if obj == 'encrypter':
+        print('fonction encrypter')
+        break
+    elif obj == 'decrypter':
+        message_a_decrypter = retirer_accents(input('Entrez le message à décrypter:')).lower()
+        while True:
+            liste_reponse = ['yes', 'oui', 'non', 'no']
+            cb = retirer_accents(input('Connaissez-vous la combinaison ? ')).lower()
+            if cb not in liste_reponse:
+                print('Réponse non-valide')
+            elif cb == 'no' or cb == 'non':
+                print('brute_force')
+                brute_force(message_a_decrypter,"data/dict-fr-AU-DELA-common-words.ascii")
+                break
+            else:  # la reponse est oui ou yes
+                print(f'Je connais la combinaison')
+                print('fonction_decrypter')
 def encryptage_terminal():
     """
     Procédure demandant à l'utilisateur un message qu'il souhaite encoder et affiche l'encodage du message.
@@ -146,14 +159,10 @@ while True:
             if reponse == 'fichier':
                 choix_cle_ou_brute_force_fichier()
                 break
-            elif reponse == 'message':
-                choix_cle_ou_brute_force_message()
-                break
-            else:
-                print("Réponse non-valide. Entrez 'fichier' ou 'message'.")
-                continue
         break
-    # réponse non valide
     else:
         print('La réponse est non valide')
-        continue
+
+"""
+TODO:  Mettre des commentaires et expliquer ce que fait le script en commentaire au début du fichier
+"""
