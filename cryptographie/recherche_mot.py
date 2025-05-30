@@ -1,5 +1,10 @@
-# A utiliser pour charger la liste de mots existants
-# Il faudra que je donne sa source
+"""
+:file: recherche_mot.py
+:brief: Cherche si une chaîne de character est un mot est effectuant une recherche dans un fichier contenant un grand
+nombre de mots existants. Le fichier utilisé provient du package: https://pypi.org/project/dict-fr-AU-DELA/
+"""
+from cryptographie import decrypter
+
 chemin_fichier_mots = "../data/dict-fr-AU-DELA-common-words.ascii"
 
 def est_un_mot(mot_a_trouver,fichier):
@@ -48,10 +53,13 @@ def brute_force_methode_1(mot_a_decoder,fichier):
     """
 
     cle = 0
+
+    mot_a_tester = decrypter(mot_a_decoder, cle)
     # On vérifie si la str est un mot. Si ce n'est pas le cas, on recommence en incrémentant la clé de 1.
-    while not est_un_mot(mot_a_decoder,fichier) and cle <= 26:
+    while not est_un_mot(mot_a_tester,fichier) and cle <= 26:
         print("Ce n'est pas la bonne clé")
         cle += 1
+        mot_a_tester = decrypter(mot_a_decoder, cle)
         print("Décodage avec la clé suivante") #Mettre la fonction permettant de décoder le mot avec la clé n
 
 
@@ -62,6 +70,7 @@ def brute_force_methode_1(mot_a_decoder,fichier):
     #On a trouvé la clé
     else:
         print(f"la clé du code César est {cle}!")
+        return (mot_a_tester,cle)
         
 def brute_force_methode_2() :
     return

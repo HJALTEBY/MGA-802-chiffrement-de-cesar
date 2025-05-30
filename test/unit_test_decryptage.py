@@ -19,7 +19,7 @@ message_tres_complexe_cle_1 = "dfdj ftu vo nfttbhf tvqfs dpnqmfyf! jm z b ef mb 
 fichier_encrpyte = "../data/fichier_encrypte"
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
+    def test_decrypter(self):
         self.assertEqual(decrypter("abc", 0), message_base)
         self.assertEqual(decrypter(mot_encrypte_cle_1,1), "abc")
         self.assertEqual(decrypter(mot_encrypte_cle_moins_1, -1), "abc")
