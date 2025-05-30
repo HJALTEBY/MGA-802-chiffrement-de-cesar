@@ -37,7 +37,6 @@ def encrypter(message,cle_de_cryptage):
             contenu_crypte += alphabet_crypte[alphabet.find(l)]
         else :
             contenu_crypte += l
-    print(f'Voici le message crypte : {contenu_crypte}')
     return contenu_crypte
 
 #décrypter dans le cas où on connait la clé
@@ -67,7 +66,6 @@ def decrypter(message, cleCryptage):
             contenu_decrypte += alphabet[alphabet_crypte.find(l)]
         else :
             contenu_decrypte += l
-    print(f'Voici le message decrypte : {contenu_decrypte}')
 
     #list_contenu_decrypte = contenu_decrypte.split()
 
