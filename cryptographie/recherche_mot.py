@@ -39,7 +39,7 @@ def est_un_mot_version_lente(mot_a_trouver):
             print(f"'{reponse_utilisateur}' n'est pas une réponse valide.")
 
 
-def brute_force(mot_a_decoder,fichier):
+def brute_force_methode_1(mot_a_decoder,fichier):
     """
     Change la clé du code César jusqu'à tomber sur un mot valide.
     :param mot_a_trouver: La chaîne de character que l'on souhaite décoder.
@@ -63,3 +63,5 @@ def brute_force(mot_a_decoder,fichier):
     else:
         print(f"la clé du code César est {cle}!")
         
+def brute_force_methode_2() :
+    return
