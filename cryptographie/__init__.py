@@ -1,5 +1,5 @@
 from .encryption_decryption import *
-from .recherche_mot import *
+
 
 def help():
     """

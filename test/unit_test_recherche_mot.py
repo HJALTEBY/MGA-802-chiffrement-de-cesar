@@ -3,7 +3,7 @@
 :brief: Test unitaire pour la fonction recherche_mot. Il suffit de lancer le fichier pour tester toutes les fonctions!
 """
 import unittest
-from cryptographie.recherche_mot import est_un_mot
+from brute_force.recherche_mot import est_un_mot
 
 chemin_dictionnaire = "../data/dict-fr-AU-DELA-common-words.ascii"
 

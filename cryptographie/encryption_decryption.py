@@ -69,6 +69,8 @@ def decrypter(message, cleCryptage):
             contenu_decrypte += l
     print(f'Voici le message crypte : {contenu_decrypte}')
 
+    #list_contenu_decrypte = contenu_decrypte.split()
+
     return contenu_decrypte
 
 def decrypter_fichier(file, cle_cryptage):
@@ -86,5 +88,6 @@ def decrypter_fichier(file, cle_cryptage):
     with open(file, 'r', encoding='utf-8') as fio:
         # Lire le contenu du fichier
         contenu_crypte = fio.read()
+        liste_contenu_crypte = fio.split()
 
-    return decrypter(contenu_crypte,cle_cryptage)
+    return decrypter(liste_contenu_crypte,cle_cryptage)

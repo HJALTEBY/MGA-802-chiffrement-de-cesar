@@ -5,7 +5,7 @@
 
 import unittest
 from unittest import mock
-from cryptographie.recherche_mot import brute_force_methode_1, brute_force_methode_2
+from brute_force.recherche_mot import brute_force_methode_1, brute_force_methode_2
 
 # Messages utilisés pour les tests. Comme nous le faisons à la main, nous testons seulement des clés avec un décalage de 1.
 chemin_fichier_mots = "../data/dict-fr-AU-DELA-common-words.ascii"

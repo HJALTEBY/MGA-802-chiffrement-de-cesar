@@ -1,6 +1,7 @@
+import brute_force.recherche_mot
 from model import *
-from brute_force import *
 from gestion_character import retirer_accents
+from cryptographie.encryption_decryption import *
 
 while True:
     obj = retirer_accents(input('Voulez-vous encrypter ou décrypter ? ').lower())
@@ -16,7 +17,7 @@ while True:
                 print('Réponse non-valide')
             elif cb == 'no' or cb == 'non':
                 print('brute_force')
-                brute_force(message_a_decrypter,"data/dict-fr-AU-DELA-common-words.ascii")
+                brute_force.recherche_mot.brute_force(message_a_decrypter,"data/dict-fr-AU-DELA-common-words.ascii")
                 break
             else:  # la reponse est oui ou yes
                 print(f'Je connais la combinaison')
