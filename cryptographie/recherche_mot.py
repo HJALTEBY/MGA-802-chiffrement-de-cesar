@@ -1,3 +1,7 @@
+# A utiliser pour charger la liste de mots existants
+# Il faudra que je donne sa source
+chemin_fichier_mots = "../data/dict-fr-AU-DELA-common-words.ascii"
+
 def est_un_mot(mot_a_trouver,fichier):
     """
     Cherche si un mot est présent dans uun fichier. Cette fonction ignore les majuscules et les accents.
