@@ -66,14 +66,14 @@ def brute_force(mess_a_decoder, fichier):
         if len(m) > 1:  # On ignore les lettres seules
             # On teste les différentes clés jusqu'à trouver un mot valide ou dépasser 26
             while not est_un_mot(decrypter(m, cle), fichier) and cle <= 26:
-                print("Ce n'est pas la bonne clé")
+                print("<décodage en cours...> Ce n'est pas la bonne clé")
                 cle += 1
                 # Affiche la clé en cours de test
-                print(f"Décodage avec la clé suivante : cle = {cle}")
+                print(f"<décodage en cours...> Décodage avec la clé suivante : cle = {cle}")
 
             if cle > 26:
                 print("Aucune clé n'a été trouvée :(")  # Toutes les clés ont été testées sans succès
-
+                return None
             else:
                 # Clé trouvée ! On la retourne.
                 return cle
@@ -100,10 +100,10 @@ def brute_force_methode_2(mess_a_decoder):
 
     # On teste chaque clé tant que le mot décrypté n'est pas reconnu comme valide par l'utilisateur
     while not est_un_mot_version_manu(decrypter(mot_a_decoder, cle)) and cle <= 26:
-        print(cle)
-        print("Ce n'est pas la bonne clé")
+        #print(cle)
+        #print("Ce n'est pas la bonne clé")
         cle += 1
-        print(f"Décodage avec la clé suivante : cle = {cle}")
+        #print(f"Décodage avec la clé suivante : cle = {cle}")
 
     # Aucune clé valide n'a été trouvée
     if cle > 26:

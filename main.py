@@ -11,11 +11,11 @@ def encryptage_terminal():
     while True:
         # On enlève les accents et on met en minuscules pour uniformiser l'entrée utilisateur
         message_a_encrypter = retirer_accents(input('Entrez le message à encrypter:').lower())
-        cle = input('Entrez une clé de cryptage entre 0 et 25:')
+        cle = input('Entrez une clé de cryptage entre -25 et 25:')
 
         try:
             # Tentative d'encryptage avec la clé fournie
-            encrypter(message_a_encrypter, cle)
+            print(f"Le message encrypté avec la clé {cle} est: {encrypter(message_a_encrypter, cle)}")
         except TypeError as e:
             # Si le type de données n'est pas correct ou la clé est invalide, on affiche l'erreur
             print(e)
@@ -36,7 +36,7 @@ def decryptage_terminal(message):
         cle = input('Entrez une clé de cryptage entre 0 et 25:')
 
         try:
-            decrypter(message, cle)
+            print(f"Le message décrypté est: {decrypter(message, cle)}")
         except TypeError as e:
             # Erreur de type ou clé invalide
             print(e)
@@ -48,25 +48,34 @@ def decryptage_terminal(message):
 def ouvrir_nom_fichier():
     """
     Demande à l'utilisateur le nom d’un fichier à lire.
-    Tente d’ouvrir ce fichier jusqu’à 3 fois en cas d’erreur.
-    :return: le texte lu ou None si 3 erreurs consécutives
+    Tente d’ouvrir ce fichier jusqu’à 4 fois en cas d’erreur.
+    :return: le texte lu ou None si 4 erreurs consécutives
     """
     compteur = 0
     while True:
         try:
+            # Limite de tentatives atteinte
+            if compteur > 3:
+                return None
+
             fichier = input('Veuillez entrer le nom du fichier à lire (.txt) : ')
             f = open(fichier, 'r')  # Ouverture du fichier en lecture
             txt = f.read()
             print(txt)  # Affiche le contenu du fichier
+
+        except IsADirectoryError as e:
+            compteur += 1
+            print("C'est un dossier, pas un fichier !")
         except FileNotFoundError as e:
             compteur += 1
             print("Votre fichier semble ne pas exister!")
 
-            # Limite de tentatives atteinte
-            if compteur > 3:
-                return None
-                break
-        return txt
+        except PermissionError as e:
+            compteur += 1
+            print("Vous n'avez pas le droit d'ouvrir ce fichier !")
+
+        else:
+            return txt
 
 
 def choix_cle_ou_brute_force(mot_a_decrypter):
@@ -84,19 +93,50 @@ def choix_cle_ou_brute_force(mot_a_decrypter):
             print('Réponse non-valide')
 
         elif cb == 'no' or cb == 'non':
-            # Méthode automatique ou manuelle de brute force
-            numero_methode = input('Voulez-vous utiliser la méthode automatique (1) ou manuel (2) ? : ')
-            if numero_methode == '1':
-                print('brute_force automatique via terminal')
-                cle_decryptage = brute_force(mot_a_decrypter, "data/dict-fr-AU-DELA-common-words.ascii")
-                break
-            elif numero_methode == '2':
-                print('brute_force manuel via terminal')
-                cle_decryptage = brute_force_methode_2(mot_a_decrypter)
+
+            while True:
+                # Méthode automatique ou manuelle de brute force
+                numero_methode = input('Voulez-vous utiliser la méthode automatique (1) ou manuel (2) ? : ')
+                if numero_methode == '1':
+                    print('brute_force automatique via terminal')
+                    cle_decryptage = brute_force(mot_a_decrypter, "data/dict-fr-AU-DELA-common-words.ascii")
+                    afficher_resultat_brute_force(mot_a_decrypter, cle_decryptage)
+                    break
+
+                elif numero_methode == '2':
+                    print('brute_force manuel via terminal')
+                    cle_decryptage = brute_force_methode_2(mot_a_decrypter)
+                    afficher_resultat_brute_force(mot_a_decrypter, cle_decryptage)
+                    break
+
+                else:
+                    print("Réponse non valide. Veuillez entrer 1 ou 2.")
+                    continue
+
+
         else:  # si réponse = oui ou yes, alors demande la clé et déchiffre
             decryptage_terminal(mot_a_decrypter)
             break
     return cle_decryptage
+
+def afficher_resultat_brute_force(message,cle):
+    """
+    Affiche le résultat de l'exécution de brute force en affichant le message décrypté ainsi que la clé si elle a été
+    trouvée.
+    :param message: Le message à décrypter provenant du fichier.
+    :param cle: La clé trouvée.
+    :return:
+    """
+
+    # La clé n'a pas été trouvée
+    if cle is None:
+        print("Aucune clé n'a été trouvée. Fin du programme.")
+        return
+
+    else:
+        # Le brute force n'a pas été effectué sur un fichier
+        print(f"Le message décrypté est: '{decrypter(message,cle)}'.")
+        print(f"La clé est: {cle}.")
 
 
 # Boucle principale de l'algorithme
