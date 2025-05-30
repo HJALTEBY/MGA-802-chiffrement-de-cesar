@@ -59,7 +59,7 @@ def brute_force(mess_a_decoder, fichier):
     cle = 0
     # On découpe le message en mots à l'aide de séparateurs usuels (ponctuation, espaces, tabulations, sauts de ligne)
     list_de_mot = re.split(r"[ ',.!?\t\n]", mess_a_decoder)
-    print(list_de_mot)
+    #print(list_de_mot)
 
     # On parcourt les mots trouvés
     for m in list_de_mot:
