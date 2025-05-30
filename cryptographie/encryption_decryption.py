@@ -22,7 +22,7 @@ def encrypter(message,cle_de_cryptage):
 
     # Si l'entrée n'est pas une chaîne de caractère, on ne peut pas encrypter le message.
     if type(message) is not str:
-        raise TypeError
+        raise TypeError('Veuillez entrer une chaîne de caractère valide!')
 
     #On retire les accents du message et on met le message en minuscule
     message = retirer_accents(message).lower()
@@ -54,7 +54,7 @@ def decrypter(message, cleCryptage):
 
     # Si l'entrée n'est pas une chaîne de caractère, on ne peut pas encrypter le message.
     if type(message) is not str:
-        raise TypeError
+        raise TypeError('Veuillez entrer une chaîne de caractère valide!')
 
     # Retrait des accents et mise en minuscule
     message = retirer_accents(message).lower()
