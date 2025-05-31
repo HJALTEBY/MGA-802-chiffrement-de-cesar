@@ -34,7 +34,7 @@ Copiez le lien du dépôt GitHub et clonez-le dans PyCharm.
 
 ### 2. Lancer le programme
 
-- Cliquez sur le bouton **Run**
+- Ouvrez le fichier main.py et cliquez sur le bouton **Run**
 - Choisissez si vous voulez **encrypter** ou **décrypter** un message ou un fichier
 
 ---
@@ -90,8 +90,36 @@ Vous pouvez utiliser deux méthodes **brute-force** :
 
 ---
 
+## Tests et performances
+
+### Tests
+Le dossier test contient plusieurs scripts contenant des tests unitaires. Ces tests, réalisés à l'aide du module 
+`unittest` présent par défaut dans Pycharm, ont pour but de prouver le bon fonctionnement de chacune des fonctions utilisées dans 
+le programme. Différents cas, de différentes complexités sont testez afin d'en éprouver la robustesse.
+
+### Performances
+Le dossier test du projet contient un script faisant appel au deux méthodes brute force différentes afin d'en comparer 
+leur efficacité.
+
+## Sources externes
+
+Aucun package externe n'a été utilisé pour réalisé ce programme. Certaines opération étant parfois compliquée et nous 
+étant inconnues, nous avons parfois été cherché des ressources en lignes, des exemples de codes sur des forum tels que:
+* https://stackoverflow.com/questions
+* https://www.geeksforgeeks.org/python-programming-language-tutorial/
+
+A chaque fois que cela été fait, le lien exact de la page a été indiqué.
+
+Concernant la méthode brute-force automatique, cette dernière s'appuie sur une liste de près de 80000 mots existants. 
+cette liste est contenu dans le fichier `dict-fr-AU-DELA-common-words.ascii` et provient du package 
+https://pypi.org/project/dict-fr-AU-DELA/. Le fichier étant fourni, il n'est pas nécessaire de télécharger le paquet 
+pour utiliser le programme.
+
+---
+
 ## Remarques finales
 
 - Si aucune clé n'est trouvée, un message approprié s'affichera.
-- Assurez-vous de tester les différents cas d’usage pour valider le bon fonctionnement.
+- Assurez-vous de tester les différents cas d’usage pour valider le bon fonctionnement.7
+
 
