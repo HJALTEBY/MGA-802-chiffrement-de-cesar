@@ -95,23 +95,23 @@ Vous pouvez utiliser deux méthodes **brute-force** :
 ### Tests
 Le dossier test contient plusieurs scripts contenant des tests unitaires. Ces tests, réalisés à l'aide du module 
 `unittest` présent par défaut dans Pycharm, ont pour but de prouver le bon fonctionnement de chacune des fonctions utilisées dans 
-le programme. Différents cas, de différentes complexités sont testez afin d'en éprouver la robustesse.
+le programme. Différents cas, de différentes complexités sont testés afin d'en prouver la robustesse.
 
 ### Performances
-Le dossier test du projet contient un script faisant appel au deux méthodes brute force différentes afin d'en comparer 
+Le dossier test du projet contient un script faisant appel aux deux différentes méthodes brute force afin de comparer 
 leur efficacité.
 
 ## Sources externes
 
-Aucun package externe n'a été utilisé pour réalisé ce programme. Certaines opération étant parfois compliquée et nous 
-étant inconnues, nous avons parfois été cherché des ressources en lignes, des exemples de codes sur des forum tels que:
+Aucun package externe n'a été utilisé pour réalisé ce programme. Certaines opérations étant parfois compliquées et nous 
+étant inconnues, nous avons parfois été cherchés des ressources en lignes, des exemples de codes sur des forum tels que:
 * https://stackoverflow.com/questions
 * https://www.geeksforgeeks.org/python-programming-language-tutorial/
 
 A chaque fois que cela été fait, le lien exact de la page a été indiqué.
 
 Concernant la méthode brute-force automatique, cette dernière s'appuie sur une liste de près de 80000 mots existants. 
-cette liste est contenu dans le fichier `dict-fr-AU-DELA-common-words.ascii` et provient du package 
+Cette liste est contenu dans le fichier `dict-fr-AU-DELA-common-words.ascii` et provient du package 
 https://pypi.org/project/dict-fr-AU-DELA/. Le fichier étant fourni, il n'est pas nécessaire de télécharger le paquet 
 pour utiliser le programme.
 
